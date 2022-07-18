@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board2"> 
+
+   <select id="SearchallArticle2" parameterType="hashMap" resultType="board2"> 
+      SELECT 
+         no, id, sex, age, major, mbti, position, soju
+      FROM 
+         board2
+       ORDER by no desc
+   </select>
+   
+   
+   <select id="detail2" resultType="board2">
+      select * 
+      from board2 where
+      no=#{no}
+   </select>
+
+   <update id="updateArticle2" parameterType="board2">
+      UPDATE board2
+      set
+      title=#{title}, content= #{content} where id=#{id} and no=#{no}
+   </update> 
+
+   <insert id="createArticle2" parameterType="board2">
+      insert into board2
+      (no, id, sex, age, major, mbti, position, soju)
+      values (#{no}, #{id}, #{sex}, #{age}, #{major}, #{mbti}, #{position}, #{soju} )
+   </insert>
+
+
+   <select id="count2" resultType="int">
+      select count(*) from board2
+   </select>
+
+   <delete id="deleteArticle2">
+      delete from board2
+      where no=#{no}
+   </delete>
+</mapper>  

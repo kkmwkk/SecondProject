@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+		
+	<!-- 회원확인 -->	
+	<select id="checkMember" parameterType="memberinfo"
+		resultType="memberinfo">
+		SELECT ID,password, name, sex, kakaoid, verify
+		FROM StudentID
+		WHERE
+		ID=#{id} AND password=#{password}
+	</select>
+
+	<!-- 회원 수정 -->
+	<update id="updateMember" parameterType="memberinfo">
+		UPDATE memberinfo
+		set
+		password= #{password}, name= #{name}
+		where id=#{id}
+	</update>
+
+	<!-- 회원 추가 -->
+	<insert id="addMember" parameterType="memberinfo">
+		INSERT INTO memberinfo
+		(id,password, name)
+		VALUES(#{id},#{password},#{name})
+	</insert>
+	
+	<!-- 회원 삭제 -->
+	<delete id="remove" parameterType="memberinfo">
+		DELETE
+		FROM StudentID
+		where id=#{id} 
+		and password=#{password}
+	</delete>
+	
+	<!-- 회원가입 -->
+		<update id="potal2" parameterType="memberinfo">	
+		UPDATE StudentID
+		set sex = #{sex}, name = #{name}, kakaoid = #{kakaoid}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 학번, 비번 저장 -->
+	<insert id="potal" parameterType="memberinfo">
+		INSERT INTO StudentID
+		(id, password)
+		VALUES(#{id}, #{password})
+	</insert>
+	
+	<!-- 아이디확인 -->
+	<select id = "idCheck" resultType="com.go.myapp.dto.MemberInfo">
+	select id
+	from StudentID
+	where id=#{'id'}
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board3"> <!-- mybatis는 namespace필수!! -->
+   <!-- 전체 글 조회 -->
+   <select id="SearchallArticle3" parameterType="hashMap" resultType="board3"> <!-- resultType속성 필수!! -->
+      SELECT 
+         no, id, sex, age, major, mbti, position, soju
+      FROM 
+         board3
+       ORDER by no desc
+   </select>
+   
+   
+   <select id="detail3" resultType="board3">
+      select * 
+      from board3 where
+      no=#{no}
+   </select>
+
+   <update id="updateArticle3" parameterType="board3">
+      UPDATE board3
+      set
+      title=#{title}, content= #{content} where id=#{id} and no=#{no}
+   </update> 
+
+   <insert id="createArticle3" parameterType="board3">
+      insert into board3
+      (no, id, sex, age, major, mbti, position, soju)
+      values (#{no}, #{id}, #{sex}, #{age}, #{major}, #{mbti}, #{position}, #{soju} )
+   </insert>
+
+
+   <select id="count3" resultType="int">
+      select count(*) from board3
+   </select>
+
+   <delete id="deleteArticle3">
+      delete from board3
+      where no=#{no}
+   </delete>
+</mapper>  

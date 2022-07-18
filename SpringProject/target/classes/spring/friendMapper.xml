@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.go.myapp.repo.FriendDAO">
+	
+	<!-- 요청보낸 사람 수 -->
+	<select id="numofFriendRequest" parameterType="String" resultType="_int">
+	select count(*) from friend where id=#{id} and status='receive'
+	</select>
+	
+	<!-- 친구요청저장(request) -->
+	<insert id="friendRequest" parameterType="Map">
+		insert into
+		friend(id,friend,kakaoid, friend_kakaoid, status)values(
+		#{id},#{friend},#{kakaoid},#{friend_kakaoid},"request"
+		)
+	</insert>
+	
+	<!-- 친구요청저장(receive) -->
+	<insert id="friendRequestFriend" parameterType="Map">
+		insert into
+		friend(id,friend,kakaoid, friend_kakaoid, status)values(
+		#{friend},#{id},#{friend_kakaoid},#{kakaoid},"receive"
+		)
+	</insert>
+	
+	
+	<!-- 상태 업데이트(친구여부) -->
+	<select id="getStatus" parameterType="Map" resultType="String">
+		select status 
+		from friend 
+		where id=#{id} and friend=#{friend}
+	</select>
+	
+	<!-- 친구인 상태 리스트 불러오기 -->
+	<select id="getList" resultType="String">
+		select friend from
+		friend where
+		id=#{id} and status="friend"
+	</select>
+	
+	<!-- 친구인 상태 카카오 아이디 가져오기 -->
+	<select id="getfriend_kakaoid" resultType="String">
+		select friend_kakaoid 
+		from friend where
+		id=#{id} and status="friend"
+	</select>
+
+	<!-- receive인 상태 친구아이디가져오기 -->
+	<select id="getRequestList" resultType="String">
+		select friend from
+		friend where
+		id=#{id} and status="receive"
+		
+	</select>
+	
+	<!-- 아이디 비교해서 상태 업데이트 -->
+	<update id="accept" parameterType="Map">
+		update friend set
+		status="friend" where id=#{id} and
+		friend=#{friend}
+	</update>
+	<!-- 친구 비교해서 상태 업데이트 -->
+	<update id="acceptFriend" parameterType="Map">
+		update friend set
+		status="friend" where id=#{friend} and
+		friend=#{id} 
+	</update>
+	<!-- 친구 삭제 -->
+	<delete id="remove" parameterType="Map">
+		delete from friend where id=#{id} and friend=#{friend}
+	</delete>
+	
+	<!-- 친구 삭제 -->
+	<delete id="removeFriend" parameterType="Map">
+		delete from friend where id=#{friend} and friend=#{id}
+	</delete>
+</mapper>

@@ -7,7 +7,7 @@
 
 
 
-<img src="./READMEFILE/노트북.png" width="70%" align-text:center >
+
 
 <br>
 
